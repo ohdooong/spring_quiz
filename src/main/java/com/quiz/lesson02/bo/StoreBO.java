@@ -20,6 +20,4 @@ public class StoreBO {
 		return storeMapper.selectStoreList();
 	}
 	
-	
-	
 }
