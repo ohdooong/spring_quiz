@@ -24,6 +24,13 @@ public interface RealEstateMapper {
 			@Param("type") String type, 
 			@Param("price") int price, 
 			@Param("rentPrice") Integer rentPrice);
+	
+	public int updateRealEstateById (
+			@Param("id") int id, // Param값은 xml #{}에 맵핑됨
+			@Param("price") int price, 
+			@Param("type") String type);
+	
+	public void deleteRealEstateById (int id);
 }
 
 

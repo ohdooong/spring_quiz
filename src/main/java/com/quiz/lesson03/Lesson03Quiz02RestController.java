@@ -22,7 +22,6 @@ public class Lesson03Quiz02RestController {
 		RealEstate realestate = new RealEstate();
 		
 		// id는 autoincrement => 안채움.
-		
 		realestate.setRealtorId(3);
 		realestate.setAddress("푸르지용 리버 303동 1104호");
 		realestate.setArea(89);
