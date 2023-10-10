@@ -30,7 +30,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:2.3.1'
 	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
-	implementation 'javax.servlet:jstl:1.2'  // springboot ver 2.x
+	implementation 'javax.servlet:jstl:1.2'  // springboot ver 2.x // JSTL 라이브러리 포함되어있음
 }
 
 tasks.named('test') {
