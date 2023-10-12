@@ -17,6 +17,7 @@
 </head>
 <body>
 	<div class="container">
+	<h1 class="font-weight-bold">회원정보 리스트</h1>
 		<table class="table text-center">
 			<thead>
 				<tr>
@@ -30,15 +31,15 @@
 			</thead>
 			<tbody>
 			<c:forEach items="${members}" var="member" varStatus="status">
-				<c:set var="nationality" value="${member.getNationality()}" />
-				<c:set var="email" value="${member.getEmail()}" />
+				<c:set var="nationality" value="${member.nationality}" />
+				<c:set var="email" value="${member.email}" />
 				<tr>
 					<td>${status.count}</td>
-					<td>${member.getName()}</td>
-					<td>${member.getPhoneNumber()}</td>
+					<td>${member.name}</td>
+					<td>${member.phoneNumber}</td>
 					<td>${fn:replace(nationality,"시대"," -") }</td>
-					<td></td>
-					<td></td>
+					<td><span class="font-weight-bold">${fn:split(email,"@")[0] }</span>@${fn:split(email,"@")[1] }</td>
+					<td>${member.introduce}</td>
 				</tr>
 			</c:forEach>
 			</tbody>
