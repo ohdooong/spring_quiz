@@ -2,8 +2,9 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 
-<mapper namespace="com.quiz.lesson05.weather_history.mapper.WeatherHistoryMapper">
-	<select id="selectWeatherHistory" resultType="map">
+<!-- resultType => 한 행을 어디다 담을 것인지. -->
+<mapper namespace="com.quiz.weather_history.mapper.WeatherHistoryMapper">
+	<select id="selectWeatherHistory" resultType="com.quiz.weather_history.domain.WeatherHistory">
 		SELECT
 			`id`
 			,`date`
@@ -18,29 +19,30 @@
 			`weather_history`
 	</select>
 
-	<insert id="setWeatherHistory" parameterType="map">
-	INSERT INTO `weather_history`
-	(
-		`date`
-		,`weather`
-		,`temperatures`
-		,`precipitation`
-		,`microDust`
-		,`windSpeed`
-		,`createdAt`
-		,`updatedAt`
-	)
-	VALUES
-	(
-		#{date},
-		#{weather},
-		#{temperatures},
-		#{precipitation},
-		#{microDust},
-		now(),
-		now()
-	
-	)
+	<insert id="insertWeatherHistory" parameterType="map">
+		INSERT INTO `weather_history`
+		(
+			`date`
+			,`weather`
+			,`temperatures`
+			,`precipitation`
+			,`microDust`
+			,`windSpeed`
+			,`createdAt`
+			,`updatedAt`
+		)
+		VALUES
+		(
+			#{date},
+			#{weather},
+			#{temperatures},
+			#{precipitation},
+			#{microDust},
+			#{windSpeed},
+			now(),
+			now()
+		
+		)
 	</insert>
 
 

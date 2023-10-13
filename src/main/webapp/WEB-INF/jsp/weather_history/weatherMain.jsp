@@ -9,13 +9,21 @@
 <head>
 <meta charset="UTF-8">
 <title>날씨 정보</title>
+
+<!-- jquery원본 : bootstrap, datepicker -->
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+
 <!-- bootstrap -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+
+<!-- datepicker -->
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 
 <!-- 내가 만든 스타일시트 -->
 <link rel="stylesheet" type="text/css" href="/css/weather_history/weather_main.css">
+
 </head>
 <body>
 	<div id="wrap">
@@ -32,10 +40,10 @@
 				<%-- flex-column: 세로 메뉴 --%>
 				<ul class="nav flex-column mt-4">
 					<li class="nav-item">
-						<a href="/lesson05/weather_history/history-view"	class="nav-link menu-font">날씨</a>
+						<a href="/weather_history/history-view"	class="nav-link menu-font">날씨</a>
 					</li>
 					<li class="nav-item">
-						<a href="/lesson05/weather_history/add-weather-view" class="nav-link menu-font">날씨입력</a>
+						<a href="/weather_history/add-weather-view" class="nav-link menu-font">날씨입력</a>
 					</li>
 					<li class="nav-item">	
 						<a href="#" class="nav-link menu-font">테마날씨</a>
@@ -64,7 +72,7 @@
 					<tbody>
 					<c:forEach items="${weatherhistory}" var="history">
 						<tr>
-							<td>${history.date}</td>	
+							<td><fmt:formatDate value="${history.date}" pattern="yyyy년 MM월 dd일" /></td>	
 							<c:choose>					
 								<c:when test="${history.weather eq '맑음'}">
 									<td><img src="/img/sunny.jpg"></td>
@@ -78,9 +86,11 @@
 								<c:when test="${history.weather eq '구름조금'}">
 									<td><img src="/img/partlyCloudy.jpg"></td>
 								</c:when>
-								
+								<c:otherwise>
+									<td>해당X</td>
+								</c:otherwise>
 							</c:choose>						
-							<td>${history.temperatures}</td>						
+							<td>${history.temperatures}°C</td>						
 							<td>${history.precipitation}</td>						
 							<td>${history.microDust}</td>						
 							<td>${history.windSpeed}</td>						
