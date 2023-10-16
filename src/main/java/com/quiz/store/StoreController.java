@@ -38,7 +38,6 @@ public class StoreController {
 			@RequestParam("storeId") int storeId,
 			@RequestParam("storeName") int storeName) {
 		
-		
 		return "store/reviewList";
 	}
 	
