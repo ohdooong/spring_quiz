@@ -11,8 +11,8 @@ import com.quiz.lessson06.domain.BookMark;
 public interface BookMarkMapper {
 	
 	public void insertBookMark (
-			@Param("title") String title,
-			@Param("address") String address);
+			@Param("name") String name,
+			@Param("url") String url);
 	
 	public List<BookMark> selectBookMarks ();
 	

@@ -14,13 +14,12 @@ public class BookMarkBO {
 	@Autowired
 	private BookMarkMapper bookmarkMapper;
 	
-	public void addBookMark (String title, String address) {
-		bookmarkMapper.insertBookMark(title, address);
+	public void addBookMark (String name, String url) {
+		bookmarkMapper.insertBookMark(name, url);
 	}
 	
 	public List<BookMark> getBookMarks () {
 		return bookmarkMapper.selectBookMarks();
 	}
-	
 	
 }

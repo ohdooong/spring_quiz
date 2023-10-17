@@ -1,7 +1,9 @@
 package com.quiz.lessson06;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,20 +27,32 @@ public class Lesson06Controller {
 	
 	// http://localhost/lesson06/quiz01/add-bookmark-view
 	@GetMapping("/add-bookmark-view")
-	public String addBookMark() {
+	public String addBookMarkView() {
 		return "lesson06/addBookmark";
 	}
 	
 	// http://localhost/lesson06/quiz01/add-book-mark
-	@PostMapping("/add-bookmark")
 	@ResponseBody
-	public String addBookMark(
-			@RequestParam("title") String title,
-			@RequestParam("address") String address) {
+	@PostMapping("/add-bookmark") // ajax가 하는 요청
+	public Map<String, Object> addBookMark( //JSON으로 응답값 내리기 위해
+			@RequestParam("name") String name,
+			@RequestParam("url") String url) {
 		
-		bookmarkBO.addBookMark(title, address);
+		// db insert
+		bookmarkBO.addBookMark(name, url);
 		
-		return "성공";
+		// 응답값 : JSON String   => 응답값은 무조건 String이거나 JSON이어야 함.
+//		{
+//			"code" : 200,
+//			"result" : "success"
+//		
+//		}
+		Map<String, Object> result = new HashMap<>();
+		
+		result.put("code",200);
+		result.put("result","success");
+		
+		return result;
 	}
 	
 	// http://localhost/lesson06/quiz01/add-result
@@ -51,7 +65,29 @@ public class Lesson06Controller {
 		model.addAttribute("bookmarks", bookmarks);
 		
 		return "lesson06/addResult";
+	}	
+	
+	// ====================== quiz02 ========================
+	
+	// http://localhost/lesson06/quiz02/is-duplication
+	
+	@GetMapping("/quiz02/is-duplication")
+	public Map<String, Object> isDuplication(
+			@RequestParam("url") String url) {
+		
+		// DB조회
+		
+		// 응답
+		Map<String, Object> result = new HashMap<>();
+		
+		
+		
+		
+		
 	}
+	
+	
+	
 	
 	
 }

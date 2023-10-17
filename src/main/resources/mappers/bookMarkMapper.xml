@@ -12,8 +12,8 @@
 		)
 		VALUES
 		(
-			#{title}
-			,#{address}
+			#{name}
+			,#{url}
 			,now()
 			,now()
 		) 
@@ -29,6 +29,4 @@
 		FROM
 			`bookmark`
 	</select>
-
-
 </mapper>

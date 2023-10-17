@@ -11,51 +11,102 @@
 
 <!-- AJAX를 사용하려면 반드시 jQuery 원본 필요 -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </head>
 <body>
 	<div class="container">
 		<h1>즐겨 찾기 추가하기</h1>
-		
-		<span>제목</span>
-		<input id="title" type="text" class="form-control">
-		
-		<span>주소</span>
-		<input id="address" type="text" class="form-control">
-		
-		<input id="submitBtn" class="my-3 btn btn-success" type="button" value="추가">
-	
+		<div class="form-group">	
+			<label for="title">제목</label>
+			<input id="title" type="text" class="form-control">
+			
+				<label for="address">URL</label>
+			<div class="d-flex">
+				<input id="address" type="text" class="form-control col-9">
+				<button id="dupCheckBtn" type="button" class="btn btn-info ml-3">중복확인</button>
+			</div>
+			
+			<small id="nameStatus"></small>
+			<button id="submitBtn" class="my-3 btn btn-success w-100" type="button">추가</button>
+		</div>
 	</div>
 
 <script>
 	$(document).ready(function () {
 		
-		$("#submitBtn").on("click", function(e) {
+		$('#dupCheckBtn').on("click", function(e) {
+			//<span class="text-danger">안녕</span>
 			
 			let title = $("#title").val().trim();
-			if (title == false)
+			if (!title)
 			{
-				alert("제목을 입력하세요.")
+				$("#nameStatus").append('<span class="text-danger">제목이 비었습니다.</span>')
 				return;
 			}
 			
 			let address = $("#address").val().trim();
-			if (address == false)
+			if (address == "")
 			{
-				alert("주소를 입력하세요.")
+				$("#nameStatus").append('<span class="text-danger">주소가 비었습니다.</span>')
 				return;
 			}
 			
 			$.ajax({
 				
+				url:"/lesson06/quiz02/is-duplication"
+				, data:{"url":address}
+				, success:function(data) {
+					
+				}
+				
+				
+			})
+			
+			
+			
+		});
+		
+		$("#submitBtn").on("click", function(e) {
+			
+			let title = $("#title").val().trim();
+			let address = $("#address").val().trim();
+			
+			console.log(title);
+			console.log(address);
+			
+			if (!title)
+			{
+				alert("제목을 입력하세요.");
+				return;
+			}
+			
+			if (address == "")
+			{
+				alert("주소를 입력하세요.");
+				return;
+			}
+			
+			if (address.startsWith("http://") == false && address.startsWith("https://") == false)
+			{
+				alert("주소 형식이 잘못되었습니다.");
+				return;
+			}
+			
+			
+			$.ajax({
+				
 				type:"POST"
 				, url:"/lesson06/quiz01/add-bookmark"
-				, data:{"title" : title, "address" : address}
-				, success : function(data) {
-					alert("추가 되었습니다.")
-					if (data == "성공")
+				, data:{"name" : title, "url" : address}
+				, success : function(data) { // data : response 응답값(JSON String) => Dictionary => js에선 String 형태로 넘어와 parsing을 해주어야 하지만, jQuery에선 자동으로 해준다.
+					
+					// data는 JSON String => Object 변환된 형태로 사용할 수 있다.
+					// jquery의 ajax 함수 기능
+					
+					alert(data.code);
+					
+					
+					if (data.result == "success") // 실무에서는 JSON 으로 응답값 날라온다. 페이스북, 인스타, ...
 					{
 						location.href = "/lesson06/quiz01/add-result"	
 					}
