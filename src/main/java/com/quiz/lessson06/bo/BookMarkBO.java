@@ -22,4 +22,13 @@ public class BookMarkBO {
 		return bookmarkMapper.selectBookMarks();
 	}
 	
+	public boolean existUrlByUrl(String url) {
+		return bookmarkMapper.existUrlByUrl(url);
+	}
+	
+	public void deleteDataById (int id) {
+		bookmarkMapper.deleteDataById(id);
+	}
+	
+	
 }

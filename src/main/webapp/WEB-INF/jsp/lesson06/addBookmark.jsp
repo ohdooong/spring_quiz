@@ -34,8 +34,76 @@
 <script>
 	$(document).ready(function () {
 		
+		
+		
+		$("#submitBtn").on("click", function(e) {
+			
+			let check = $('#nameStatus').children().length;
+			
+			let title = $("#title").val().trim();
+			let address = $("#address").val().trim();
+			
+			if (!title)
+			{
+				alert("제목을 입력하세요.");
+				return;
+			}
+			
+			if (address == "")
+			{
+				alert("주소를 입력하세요.");
+				return;
+			}
+			
+			if (address.startsWith("http://") == false && address.startsWith("https://") == false)
+			{
+				alert("주소 형식이 잘못되었습니다.");
+				return;
+			}
+			
+			if (check > 0)
+			{
+				alert("중복확인 해주시기 바랍니다.")
+				return;
+			}
+			
+			
+			
+			$.ajax({
+				
+				type:"POST"
+				, url:"/lesson06/quiz01/add-bookmark"
+				, data:{"name" : title, "url" : address}
+				, success : function(data) { // data : response 응답값(JSON String) => Dictionary => js에선 String 형태로 넘어와 parsing을 해주어야 하지만, jQuery에선 자동으로 해준다.
+					
+					// data는 JSON String => Object 변환된 형태로 사용할 수 있다.
+					// jquery의 ajax 함수 기능
+					
+					alert("추가 되었습니다.");
+					
+					
+					if (data.result == "success") // 실무에서는 JSON 으로 응답값 날라온다. 페이스북, 인스타, ...
+					{
+						location.href = "/lesson06/quiz01/add-result"	
+					}
+				}
+				, error:function(request, status, error) {
+					alert(request);
+					alert(status);
+					alert(error);
+				}
+				
+				
+			});
+			
+			
+			
+		});
+		
 		$('#dupCheckBtn').on("click", function(e) {
 			//<span class="text-danger">안녕</span>
+			
+			$('#nameStatus').empty();
 			
 			let title = $("#title").val().trim();
 			if (!title)
@@ -57,68 +125,18 @@
 				, data:{"url":address}
 				, success:function(data) {
 					
+					if(data.is_duplication)
+					{
+						$('#nameStatus').append('<span class="text-danger">중복된 주소가 있습니다.</span>');
+					}	
+					
+				}
+				, error:function(request, status, error) {
+					alert("중복확인 중 에러발생.");
 				}
 				
 				
 			})
-			
-			
-			
-		});
-		
-		$("#submitBtn").on("click", function(e) {
-			
-			let title = $("#title").val().trim();
-			let address = $("#address").val().trim();
-			
-			console.log(title);
-			console.log(address);
-			
-			if (!title)
-			{
-				alert("제목을 입력하세요.");
-				return;
-			}
-			
-			if (address == "")
-			{
-				alert("주소를 입력하세요.");
-				return;
-			}
-			
-			if (address.startsWith("http://") == false && address.startsWith("https://") == false)
-			{
-				alert("주소 형식이 잘못되었습니다.");
-				return;
-			}
-			
-			
-			$.ajax({
-				
-				type:"POST"
-				, url:"/lesson06/quiz01/add-bookmark"
-				, data:{"name" : title, "url" : address}
-				, success : function(data) { // data : response 응답값(JSON String) => Dictionary => js에선 String 형태로 넘어와 parsing을 해주어야 하지만, jQuery에선 자동으로 해준다.
-					
-					// data는 JSON String => Object 변환된 형태로 사용할 수 있다.
-					// jquery의 ajax 함수 기능
-					
-					alert(data.code);
-					
-					
-					if (data.result == "success") // 실무에서는 JSON 으로 응답값 날라온다. 페이스북, 인스타, ...
-					{
-						location.href = "/lesson06/quiz01/add-result"	
-					}
-				}
-				, error:function(request, status, error) {
-					alert(request);
-					alert(status);
-					alert(error);
-				}
-				
-				
-			});
 			
 			
 			

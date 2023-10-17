@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.quiz.lessson06.bo.BookMarkBO;
 import com.quiz.lessson06.domain.BookMark;
 
-@RequestMapping("/lesson06/quiz01")
+@RequestMapping("/lesson06")
 @Controller
 public class Lesson06Controller {
 	
@@ -26,14 +26,14 @@ public class Lesson06Controller {
 	
 	
 	// http://localhost/lesson06/quiz01/add-bookmark-view
-	@GetMapping("/add-bookmark-view")
+	@GetMapping("/quiz01/add-bookmark-view")
 	public String addBookMarkView() {
 		return "lesson06/addBookmark";
 	}
 	
 	// http://localhost/lesson06/quiz01/add-book-mark
 	@ResponseBody
-	@PostMapping("/add-bookmark") // ajax가 하는 요청
+	@PostMapping("/quiz01/add-bookmark") // ajax가 하는 요청
 	public Map<String, Object> addBookMark( //JSON으로 응답값 내리기 위해
 			@RequestParam("name") String name,
 			@RequestParam("url") String url) {
@@ -56,7 +56,7 @@ public class Lesson06Controller {
 	}
 	
 	// http://localhost/lesson06/quiz01/add-result
-	@GetMapping("/add-result")
+	@GetMapping("/quiz01/add-result")
 	public String addResult (Model model) {
 		
 		List<BookMark> bookmarks = new ArrayList<>();
@@ -69,21 +69,36 @@ public class Lesson06Controller {
 	
 	// ====================== quiz02 ========================
 	
-	// http://localhost/lesson06/quiz02/is-duplication
-	
+	// http://localhost/lesson06/quiz02/is-duplication => AJAX로부터의 요청
+	@ResponseBody
 	@GetMapping("/quiz02/is-duplication")
 	public Map<String, Object> isDuplication(
 			@RequestParam("url") String url) {
 		
-		// DB조회
+		boolean isDuplicated = bookmarkBO.existUrlByUrl(url);
 		
 		// 응답
 		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("is_duplication", isDuplicated);
 		
 		
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping("/quiz02/delete-data")
+	public Map<String, Object> deleteData(
+			@RequestParam("id") int id) {
 		
+		// db 삭제
+		bookmarkBO.deleteDataById(id);
+		// 응답
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 200);
+		result.put("is_delete", "success");
 		
-		
+		return result;
 	}
 	
 	

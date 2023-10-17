@@ -16,4 +16,8 @@ public interface BookMarkMapper {
 	
 	public List<BookMark> selectBookMarks ();
 	
+	public boolean existUrlByUrl(String url);
+	
+	public void deleteDataById (int id);
+	
 }
