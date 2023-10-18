@@ -30,5 +30,11 @@ public class BookMarkBO {
 		bookmarkMapper.deleteDataById(id);
 	}
 	
+	// input:rel ::::::: output:Bookmark 단 건이거나, 널이거나
+	// Too many result => 단건으로 이턴하지만 결과는 List로 나왔을 때
+	
+	public BookMark getBookmarkByUrl(String url) {
+		return bookmarkMapper.selectBookmarkByUrl(url);
+	}
 	
 }

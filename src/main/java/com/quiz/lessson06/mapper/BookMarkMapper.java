@@ -20,4 +20,6 @@ public interface BookMarkMapper {
 	
 	public void deleteDataById (int id);
 	
+	public BookMark selectBookmarkByUrl(String url);
+	
 }

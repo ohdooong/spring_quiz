@@ -8,6 +8,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -69,31 +70,41 @@ public class Lesson06Controller {
 	
 	// ====================== quiz02 ========================
 	
-	// http://localhost/lesson06/quiz02/is-duplication => AJAX로부터의 요청
+	// http://localhost/lesson06/quiz02/is-duplicated-url => AJAX로부터의 요청
 	@ResponseBody
-	@GetMapping("/quiz02/is-duplication")
+	@PostMapping("/quiz02/is-duplicated-url")
 	public Map<String, Object> isDuplication(
 			@RequestParam("url") String url) {
 		
 		boolean isDuplicated = bookmarkBO.existUrlByUrl(url);
 		
+		// DB 조회
+		BookMark bookmark = bookmarkBO.getBookmarkByUrl(url);
+		
 		// 응답
+//		Map<String, Object> result = new HashMap<>();
+//		result.put("code", 200);
+//		result.put("is_duplication", bookmark);
+//		
+		
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
-		result.put("is_duplication", isDuplicated);
+		result.put("is_duplication", false);
+		if (bookmark != null) {
+			result.put("is_duplication", true);
+		}
 		
 		
 		return result;
 	}
 	
 	@ResponseBody
-	@RequestMapping("/quiz02/delete-data")
+	@DeleteMapping("/quiz02/delete-data")      // Get방식 x    => 다른사람이 다른사람의 글을 막 지울 수 있다.     : 방안: POST, Delete
 	public Map<String, Object> deleteData(
 			@RequestParam("id") int id) {
 		
 		// db 삭제
 		bookmarkBO.deleteDataById(id);
-		// 응답
 		Map<String, Object> result = new HashMap<>();
 		result.put("code", 200);
 		result.put("is_delete", "success");

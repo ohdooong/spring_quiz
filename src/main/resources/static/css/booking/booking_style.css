@@ -1,0 +1,19 @@
+@charset "UTF-8";
+
+
+#wrap {
+	padding: 0;
+	width:1000px;
+}
+
+header {
+	height:150px;
+}
+
+.contents {
+	
+}
+
+.reservation {
+	height:300px;
+}

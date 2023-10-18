@@ -21,12 +21,13 @@
 			<input id="title" type="text" class="form-control">
 			
 				<label for="address">URL</label>
-			<div class="d-flex">
-				<input id="address" type="text" class="form-control col-9">
-				<button id="dupCheckBtn" type="button" class="btn btn-info ml-3">중복확인</button>
+			<div class="form-inline">
+				<input id="address" type="text" class="form-control col-11">
+				<button id="dupCheckBtn" type="button" class="btn btn-info">중복확인</button>
 			</div>
 			
-			<small id="nameStatus"></small>
+			<small id="nameStatus" class="text-danger d-none">중복된 URL 입니다.</small>
+			<small id="availableText" class="text-primary d-none">저장 가능한 URL 입니다.</small>
 			<button id="submitBtn" class="my-3 btn btn-success w-100" type="button">추가</button>
 		</div>
 	</div>
@@ -67,6 +68,10 @@
 				return;
 			}
 			
+			if ($('#availableText').hasClass('d-none')) { //available d-none이 있으면 가입불가
+				alert("URL 중복확인을 다시해주세요")
+				return;
+			}
 			
 			
 			$.ajax({
@@ -101,9 +106,8 @@
 		});
 		
 		$('#dupCheckBtn').on("click", function(e) {
-			//<span class="text-danger">안녕</span>
+			// 중복확인 버튼 클릭
 			
-			$('#nameStatus').empty();
 			
 			let title = $("#title").val().trim();
 			if (!title)
@@ -119,24 +123,37 @@
 				return;
 			}
 			
+			
+			// DB에서 URL 중복확인 -AJAX 통신
 			$.ajax({
 				
-				url:"/lesson06/quiz02/is-duplication"
+				// request
+				type:"POST"    // URL이 길 수 있어서
+				, url:"/lesson06/quiz02/is-duplicated-url"
 				, data:{"url":address}
+			
+				// response
 				, success:function(data) {
+					// {"code":200, "is_duplication":true}
 					
 					if(data.is_duplication)
 					{
-						$('#nameStatus').append('<span class="text-danger">중복된 주소가 있습니다.</span>');
+						
+						$('#nameStatus').removeClass('d-none');
+						$('#availableText').addClass('d-none');
 					}	
-					
+					else 
+					{
+						$('#nameStatus').addClass('d-none');
+						$('#availableText').removeClass('d-none');
+					}
 				}
 				, error:function(request, status, error) {
 					alert("중복확인 중 에러발생.");
 				}
 				
 				
-			})
+			});
 			
 			
 			

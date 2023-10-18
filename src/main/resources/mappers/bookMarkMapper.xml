@@ -46,6 +46,22 @@
 			`id` = #{id}
 	</delete>
 	
+	<select id="selectBookmarkByUrl" resultType="com.quiz.lessson06.domain.BookMark">
+	SELECT
+			`id`
+			,`name`
+			,`url`
+			,`createdAt`
+			,`updatedAt`
+	 FROM
+			`bookmark`
+	
+	 WHERE
+	 		`url` = #{url}
+	
+	
+	</select>
+	
 	
 	
 	

@@ -31,7 +31,17 @@
 					<td>${status.count}</td>
 					<td>${bookmark.name}</td>
 					<td><a href="${bookmark.url}" target="_blank">${bookmark.url}</a></td>
-					<td><button type="button" class="deleteBtn btn btn-danger" value="${bookmark.id}">삭제</button></td>
+					<td>
+						<!-- 1) value속성을 이용한 값 세팅 -->
+						<!--  <button type="button" class="deleteBtn btn btn-danger" value="${bookmark.id}">삭제</button> -->
+						
+						<!-- 2) data를 이용해서 태그에 값을 세팅 -->
+						<!-- ★★★★★★★ 대문자 들어가면 안됨!!!!!!!!!!!!!!!!!!!!!!!! -->
+						<button type="button" class="deleteBtn btn btn-danger" data-bookmark-id="${bookmark.id}" data-url>삭제</button>
+					</td> 
+					
+					
+					
 				</tr>
 			</c:forEach>
 			</tbody>
@@ -42,27 +52,36 @@
 		
 		$('.deleteBtn').on("click", function(e) {
 			
-			let id = $(this).val();
 			
+			// value 이용
+			//let id = $(this).val(); // 지금 클릭된 버튼의 값
+			//let id = e.target.value;    // 위의 것과 동일하다
+			
+			// data 이용
+			//data-bookmark-id   // => data("bookmark-id") 함수 사용
+			let id = $(this).data('bookmark-id');
 			$.ajax({
 			
-				type:"POST"
+				type:"DELETE"
 				,url:"/lesson06/quiz02/delete-data"
 				,data:{"id":id}
 				,success:function(data) {
 					
-					if (data.is_delete == "success")
+					if (data.code == 200)
 					{
-						location.href = "/lesson06/quiz01/add-result";
+						// location.href = "/lesson06/quiz01/add-result";
+						
+						// 새로고침 방법
+						location.reload(); // 스크롤 위치까지 그대로 
 					}
-					else
+					else  // 보통 dictionary에 오류코드 지정해서 보내고 각각 오류 코드마다 분기해서 코드 작성
 					{
 						alert("삭제 실패")
 					}
 					
 				}
 				,error:function(request, status, error) {
-					alert("삭제할때 에러발생");
+					alert("알 수 없는 에러가 발생했습니다. 관리자에게 문의해주세요.");
 				}
 				
 			})
