@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,7 +32,7 @@
 							<a href="#" class="text-white font-weight-bold">객실보기</a>
 						</li>
 						<li class="nav-item">
-							<a href="#" class="text-white font-weight-bold">예약하기</a>
+							<a href="/booking/add-booking-view" class="text-white font-weight-bold">예약하기</a>
 						</li>
 						<li class="nav-item">
 							<a href="/booking/reservation-List" class="text-white font-weight-bold">예약목록</a>
@@ -55,11 +56,32 @@
 					</tr>
 				</thead>
 				<tbody>
-				<%-- <c:forEach>
+				<c:forEach items="${bookingList}" var="booking">
+				<tr>
+					<td>${booking.name}</td>
+					<td><fmt:formatDate value="${booking.date}" pattern="yyyy년 M월 dd일" /></td>
+					<td>${booking.day}</td>
+					<td>${booking.headcount}</td>
+					<td>${booking.phoneNumber}</td>
+					<c:choose>
+						<c:when test="${booking.state eq '대기중'}">
+							<td class="text-primary">${booking.state}</td>
+						</c:when>
+						<c:when test="${booking.state eq '확정'}">
+							<td class="text-success">${booking.state}</td>
+						</c:when>
+						<c:when test="${booking.state eq '취소'}">
+							<td class="text-danger">${booking.state}</td>
+						</c:when>
+						<c:when test="${booking.state}">
+							<td>${booking.state}</td>
+						</c:when>
 					
 					
-					
-				</c:forEach>	 --%>
+					</c:choose>
+					<td><button type="button" class="del-btn btn btn-danger" data-booking-id="${booking.id}">삭제</button></td>
+				<tr>
+				</c:forEach>
 				</tbody>
 			</table>
 		</section>
@@ -71,7 +93,43 @@
 		</footer>
 	</div>
 
+<script>
 
+	$(document).ready(function() {
+		
+		$('.del-btn').on("click", function() {
+			
+			let id = $(this).data('booking-id');
+			
+			$.ajax({
+				
+				type:"delete"
+				,url:"/booking/delete-booking"      // 뷰 요청이 아님
+				,data:{"id":id}
+				
+				
+				,success:function(data) {   // JSON    OR   Dictionary
+					// {"code":200, "result":"success"}
+					if (data.result == "success") {
+						alert("삭제 되었습니다.");
+						location.reload(true);
+					}
+				}
+				,error:function(request, status, error) {
+					alert("삭제하는데 실패했습니다. 관리자에게 문의해주세요.")
+				}
+				
+				
+				
+				
+			});
+			
+		});
+	});
+
+
+
+</script>
 
 
 </body>
