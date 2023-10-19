@@ -33,7 +33,7 @@ public class BookingBO {
 		bookingMapper.insertBooking(name, headcount, day, phoneNumber, date);
 	}
 	
-	public List<Booking> getreserveInfo(String name, String phoneNumber){
+	public Booking getreserveInfo(String name, String phoneNumber){
 		return bookingMapper.selectreserveInfo(name, phoneNumber);
 	}
 	

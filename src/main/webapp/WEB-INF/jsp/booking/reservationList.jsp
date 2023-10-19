@@ -18,29 +18,17 @@
 </head>
 <body>
 	<div id="wrap" class="container">
-		<header>
-			<div class="h-75 d-flex justify-content-center align-items-center">
-				<h1 class="display-4">통나무 펜션</h1>
-			</div>
-			<nav class="h-25 bg-warning">
-				<div class="pt-2">
-					<ul class="nav nav-fill">
-						<li class="nav-item">
-							<a href="#" class="text-white font-weight-bold">펜션소개</a>
-						</li>
-						<li class="nav-item">
-							<a href="#" class="text-white font-weight-bold">객실보기</a>
-						</li>
-						<li class="nav-item">
-							<a href="/booking/add-booking-view" class="text-white font-weight-bold">예약하기</a>
-						</li>
-						<li class="nav-item">
-							<a href="/booking/reservation-List" class="text-white font-weight-bold">예약목록</a>
-						</li>
-					</ul>
-				</div>
-			</nav>
+		<header class="d-flex justify-content-center align-items-center">
+			<div class="display-4"><a id="logo" class="text-dark" href="/booking/booking-main">통나무 펜션</a></div>
 		</header>
+		<nav>
+			<ul class="nav nav-fill">
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
+				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
+				<li class="nav-item"><a href="/booking/add-booking-view" class="nav-link text-white font-weight-bold">예약하기</a></li>
+				<li class="nav-item"><a href="/booking/reservation-List" class="nav-link text-white font-weight-bold">예약목록</a></li>
+			</ul>
+		</nav>
 		
 		
 		<section class="contents">

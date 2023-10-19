@@ -18,7 +18,7 @@
 <body>
 	<div id="wrap" class="container">
 		<header class="d-flex justify-content-center align-items-center">
-			<div class="display-4">통나무 펜션</div>
+			<div  class="display-4"><a id="logo" href="/booking/booking-main" class="text-dark">통나무 펜션</a></div>
 		</header>
 		<nav>
 			<ul class="nav nav-fill">

@@ -19,7 +19,7 @@
 <body>
 	<div id="wrap" class="container">
 		<header class="d-flex justify-content-center align-items-center">
-			<div class="display-4">통나무 펜션</div>
+			<div class="display-4"><a id="logo" class="text-dark" href="/booking/booking-main">통나무 펜션</a></div>
 		</header>
 		<nav>
 			<ul class="nav nav-fill">
@@ -30,7 +30,7 @@
 			</ul>
 		</nav>
 		<section class="banner bg-info">
-			<img id="bannerImage" src="" alt="banner" width="1000" height="500">
+			<img id="bannerImage" class="w-100" src="/img/booking/test06_banner1.jpg" alt="banner"  height="500">
 		</section>
 		<section class="reserve d-flex">
 			<section class="real-time-reserved col-4 d-flex justify-content-center align-items-center">
@@ -106,27 +106,15 @@
 					// response
 					,success:function(data) {
 						
-					
-							
 							
 						if (data.code == 200)
 						{
-							var list = new Array();
-							<c:forEach items="${info}" var="inf">
-								list.push('${inf.name}');
-								list.push("${inf.date}");
-								list.push("${inf.day}");
-								list.push("${inf.headcount}");
-								list.push("${inf.state}");
-							</c:forEach>
-							
-							
-							
-							alert("이름 : " + list[0] + "\n" +
-									"날짜 : " + list[1] + "\n" +
-									"일수 : " + list[2] + "\n" +
-									"인원 : " + list[3] + "\n" +
-									"상태 : " + list[4] + "\n")
+							alert(
+									"이름 : " + data.booking.name + "\n" +
+									"날짜 : " + data.bookingDate + "\n" +
+									"일수 : " + data.booking.day + "\n" +
+									"인원 : " + data.booking.headcount + "\n" +
+									"상태 : " + data.booking.state);
 						}
 						
 						if (data.code == 300) 

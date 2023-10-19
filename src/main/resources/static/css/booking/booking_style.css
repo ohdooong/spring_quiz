@@ -16,3 +16,5 @@ nav {height:40px; background-color:#E3871F;}
 footer {height:80px; margin-top:30px;}
 
 .input-form {width:230px; height:30px; margin-left:10px;}
+
+#logo:hover {text-decoration: none;}

@@ -1,5 +1,6 @@
 package com.quiz.booking;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -83,25 +84,27 @@ public class BookingController {
 			@RequestParam("phoneNumber") String phoneNumber,
 			Model model) {
 		
-		List<Booking> info = new ArrayList<>();
-		
+		Booking booking = new Booking();
 		
 		// db select
-		info = bookingBO.getreserveInfo(name, phoneNumber);
-		
-		model.addAttribute("info", info);
-		
+		booking = bookingBO.getreserveInfo(name, phoneNumber);
 		Map<String, Object> result = new HashMap<>();
 		
-		if (info.isEmpty()) {
-			
+		
+		
+		if (booking == null) {
 			result.put("code", 300);
-			result.put("result", "nothing");
+			result.put("result", "failed");
 		} else {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String bookingDate = sdf.format(booking.getDate());
 			result.put("code", 200);
 			result.put("result", "success");
-			
+			result.put("booking", booking);
+			result.put("bookingDate", bookingDate);
 		}
+		
+		
 		
 		return result;
 		
