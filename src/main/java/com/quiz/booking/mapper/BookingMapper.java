@@ -23,7 +23,7 @@ public interface BookingMapper {
 			@Param("date") String date
 							);
 	
-	public Booking selectreserveInfo(
+	public List<Booking> selectreserveInfo(
 			@Param("name") String name,
 			@Param("phoneNumber") String phoneNumber);
 	

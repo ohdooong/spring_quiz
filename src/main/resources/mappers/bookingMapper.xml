@@ -18,7 +18,6 @@
 		`booking`
 	</select>
 
-
 	<delete id="deleteBookingById">
 	DELETE FROM
 		`booking`
@@ -53,6 +52,7 @@
 	
 	</insert>
 	
+
 	<select id="selectreserveInfo" parameterType="map" resultType="com.quiz.booking.domain.Booking">
 		SELECT
 			`id`
@@ -66,8 +66,8 @@
 			,`updatedAt`
 		FROM
 			`booking`
-		WHERE
-			`name` = #{name}
+		WHERE 1=1
+		AND	`name` = #{name}
 		AND `phoneNumber` = #{phoneNumber}
 	</select>
 

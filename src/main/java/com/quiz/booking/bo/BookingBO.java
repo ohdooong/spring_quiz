@@ -33,8 +33,18 @@ public class BookingBO {
 		bookingMapper.insertBooking(name, headcount, day, phoneNumber, date);
 	}
 	
+	// input: name, phoneNumber     	output : Booking(null or Booking)
 	public Booking getreserveInfo(String name, String phoneNumber){
-		return bookingMapper.selectreserveInfo(name, phoneNumber);
+		List<Booking> bookingList = bookingMapper.selectreserveInfo(name, phoneNumber);
+		// 0  1(최신) 
+		// Mybatis는 결과가 없으면 empty로 반환한다. 즉 널이 아니다. bookingList = []와 같은 식으로.
+		
+		if (bookingList.isEmpty()) {
+			return null;
+		}
+			
+		// 리스트가 비어있지 않으면 마지막 객체 리턴
+		return bookingList.get(bookingList.size() - 1);
 	}
 	
 	

@@ -72,7 +72,6 @@
 		$('#reservationBtn').on('click', function() {
 			
 			console.log("안녕")
-			
 			let name = $('input[name=name]').val().trim();
 			let date = $('input[name=date]').val().trim();
 			let day = $('input[name=day]').val().trim();

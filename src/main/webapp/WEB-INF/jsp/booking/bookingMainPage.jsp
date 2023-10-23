@@ -105,21 +105,21 @@
 				
 					// response
 					,success:function(data) {
-						
+						// {"code":400, "error_message":"데이터가 존재하지 않습니다."} 혹은
+						// {"code":200, "result":{"id":1, "name":...}}
 							
-						if (data.code == 200)
-						{
-							alert(
-									"이름 : " + data.booking.name + "\n" +
-									"날짜 : " + data.bookingDate + "\n" +
-									"일수 : " + data.booking.day + "\n" +
-									"인원 : " + data.booking.headcount + "\n" +
-									"상태 : " + data.booking.state);
-						}
-						
-						if (data.code == 300) 
-						{
-							alert("예약 내역이 없습니다.");
+						if (data.code == 200) {
+							console.log(data.result)
+							alert
+							(
+									"이름 : " + data.result.name + "\n" +
+									"날짜 : " + data.result.date.substring(0,10) + "\n" +
+									"일수 : " + data.result.day + "\n" +
+									"인원 : " + data.result.headcount + "\n" +
+									"상태 : " + data.result.state
+							 );
+						} else if (data.code == 400) {
+							alert(data.error_message);
 							return;
 						}
 					}

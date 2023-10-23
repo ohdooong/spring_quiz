@@ -76,35 +76,30 @@ public class BookingController {
 	
 	
 	//예약 조회 기능 - ajax 요청
-	//{"code":200, "result":"success"}
-	@ResponseBody
+	@ResponseBody //  @ResponseBody가 있을때는 Model을 사용할 수 없다.  (jsp (VIEW)로 이동 하지 않기 때문)
 	@PostMapping("/booking/search-reservation")
 	public Map<String, Object> searchReserVation(
 			@RequestParam("name") String name,
-			@RequestParam("phoneNumber") String phoneNumber,
-			Model model) {
+			@RequestParam("phoneNumber") String phoneNumber
+			) {
 		
+		
+		// DB select
 		Booking booking = new Booking();
-		
-		// db select
 		booking = bookingBO.getreserveInfo(name, phoneNumber);
+		
+		// 응답값
+		// {"code":400, "error_message":"데이터가 존재하지 않습니다."} 혹은
+		// {"code":200, "result":{"id":1, "name":...}} 
 		Map<String, Object> result = new HashMap<>();
 		
-		
-		
 		if (booking == null) {
-			result.put("code", 300);
-			result.put("result", "failed");
+			result.put("code", 400);
+			result.put("error_message", "데이터가 존재하지 않습니다.");
 		} else {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-			String bookingDate = sdf.format(booking.getDate());
 			result.put("code", 200);
-			result.put("result", "success");
-			result.put("booking", booking);
-			result.put("bookingDate", bookingDate);
+			result.put("result", booking);
 		}
-		
-		
 		
 		return result;
 		
