@@ -1,5 +1,7 @@
 package com.quiz.lesson07;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,31 +22,31 @@ public class Lesson07Quiz02RestController {
 	public RecruitEntity quiz02_1() {
 		return recruitRepository.findById(8).orElse(null);
 	}
-	
-	@GetMapping("/2")
-	public List<RecruitEntity> quiz02_2(
-			@RequestParam("corporationId") int companyId) {
-		
-		return recruitRepository.findByCompanyId(companyId);
-	}
-	
-	@GetMapping("/3")
-	public List<RecruitEntity> quiz02_3 () {
-		
-		return recruitRepository.findByPositionAndType();
-	}
-	
-	
-	
-	
+//	
+//	@GetMapping("/2")
+//	public List<RecruitEntity> quiz02_2(
+//			@RequestParam("corporationId") int companyId) {
+//		
+//		return recruitRepository.findByCompanyId(companyId);
+//	}
+//	
+//	@GetMapping("/3")
+//	public List<RecruitEntity> quiz02_3 () {
+//		
+//		return recruitRepository.findByPositionAndType();
+//	}
+//	
+//	
 	
 	
 	
-	
-	@GetMapping("/7")
-	public List<RecruitEntity> quiz02_7 () {
-		return recruitRepository.findByDeadlineAfterAndSalaryGreaterThanEqualAndTypeOrderBySalaryDesc("2026-04-10",8100,);
-	}
-	
-	
+//	
+//	
+//	
+//	@GetMapping("/7")
+//	public List<RecruitEntity> quiz02_7 () {
+//		return recruitRepository.findByDeadlineAfterAndSalaryGreaterThanEqualAndTypeOrderBySalaryDesc("2026-04-10",8100,);
+//	}
+//	
+//	
 }

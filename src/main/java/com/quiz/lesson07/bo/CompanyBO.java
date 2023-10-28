@@ -14,36 +14,18 @@ public class CompanyBO {
 	@Autowired
 	private CompanyRepository companyRepository;
 	
+	
+	// input : 4개 파라미터, output:방금 인서트 된 엔티티
 	public CompanyEntity addCompany (String name, String business, String scale, int headcount) {
 		
-		CompanyEntity company = CompanyEntity.builder()
-				.name(name)
-				.business(business)
-				.scale(scale)
-				.headcount(headcount)
-				.build();
-		
-		return companyRepository.save(company);
+		return companyRepository.save(
+					CompanyEntity.builder()
+					.name(name)
+					.business(business)
+					.scale(scale)
+					.headcount(headcount).build()      // 객체를 만들어서 setter 역할까지 해줌
+				);
 	}
 	
-	// input: 3개 파라미터      output: CompanyEntity
-	public CompanyEntity updateCompanyScaleHeadcountById(int id, String scale, int headcount) {
-		CompanyEntity company = companyRepository.findById(id).orElse(null);
-			
-		if (company != null) {
-			return companyRepository.save(
-					company.toBuilder()
-					.scale(scale)
-					.headcount(headcount)
-					.build());
-		}
-			
-		return null;
-	}
-		
-		public void deleteCompanyById(int id) {
-			Optional<CompanyEntity> companyOptional = companyRepository.findById(id);
-			companyOptional.ifPresent(c -> companyRepository.delete(c));
-		}
 	
 }
