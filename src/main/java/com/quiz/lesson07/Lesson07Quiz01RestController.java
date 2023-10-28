@@ -54,6 +54,11 @@ public class Lesson07Quiz01RestController {
 		return companyBO.addCompany(name, business, scale, headcount);
 	}
 	
+	@GetMapping("/update")
+	public CompanyEntity update() {
+		return companyBO.updateScaleById(9, "중소 기업");
+	}
+	
 	
 	
 }

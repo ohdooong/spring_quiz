@@ -27,5 +27,19 @@ public class CompanyBO {
 				);
 	}
 	
+	// input : int id,String scale			// output : 방금 변경된 그 Entity
+	public CompanyEntity updateScaleById (int id, String scale) {
+		CompanyEntity company = companyRepository.findById(id).orElse(null);
+		
+		if (company != null) {
+			company = company.toBuilder()
+						.scale(scale)
+						.build();
+			companyRepository.save(company);
+		}
+		return company;
+		
+	}
+	
 	
 }
