@@ -10,6 +10,6 @@ public interface CompanyRepository extends JpaRepository<CompanyEntity, Integer>
 	// JpaRepository: Spring Data JPA
 	
 	// save(엔티티객체) - insert, update(id 채워져있으면)   // extends안했으면 구현해야함.
-	// findById - 조회
+	// findById() - select
 	// delete(엔티티객체)
 }

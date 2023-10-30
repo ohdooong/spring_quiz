@@ -27,19 +27,25 @@ public class CompanyBO {
 				);
 	}
 	
-	// input : int id,String scale			// output : 방금 변경된 그 Entity
-	public CompanyEntity updateScaleById (int id, String scale) {
-		CompanyEntity company = companyRepository.findById(id).orElse(null);
+	// input : 3개 파라미터		// output : 방금 변경된 그 Entity
+	public CompanyEntity updateScaleHeadcountById (int id, int headcount ,String scale) {
+		CompanyEntity company = companyRepository.findById(id).orElse(null);    // Optional 객체로 돌려줘서 결과가 없으면 null로 세팅한다는 뜻 
 		
 		if (company != null) {
-			company = company.toBuilder()
-						.scale(scale)
-						.build();
-			companyRepository.save(company);
+			return companyRepository.save(company.toBuilder()
+					.scale(scale)
+					.headcount(headcount)
+					.build());
 		}
-		return company;
-		
+		return null;
 	}
 	
+	// delete
+	// input: id		output:x
+	public void deleteById (int id) {
+		Optional<CompanyEntity> companyOptional = companyRepository.findById(id);
+		companyOptional.ifPresent(company -> companyRepository.delete(company));
+		
+	}
 	
 }

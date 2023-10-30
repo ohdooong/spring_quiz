@@ -54,11 +54,16 @@ public class Lesson07Quiz01RestController {
 		return companyBO.addCompany(name, business, scale, headcount);
 	}
 	
+	// http://localhost:8050/lesson07/quiz01/update
 	@GetMapping("/update")
 	public CompanyEntity update() {
-		return companyBO.updateScaleById(9, "중소 기업");
+		return companyBO.updateScaleHeadcountById(9, 34,"중소 기업");
 	}
 	
-	
+	@GetMapping("/delete")
+	public String delete() {
+		companyBO.deleteById(9);
+		return "삭제 완료";
+	}
 	
 }
